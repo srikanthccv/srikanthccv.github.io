@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content="Pelican" />
+        <title>Chekuri - os</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Chekuri</a></h1>
+                <nav><ul>
+                    <li><a href="/pages/about.html">About</a></li>
+                    <li><a href="/category/poasts.html">poasts</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/threading-and-forking.html">Threading and forking</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2023-08-12T00:00:00+04:00">
+                Published: Sat 12 August 2023
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
+        </address>
+<p>In <a href="/category/poasts.html">poasts</a>.</p>
+<p>tags: <a href="/tag/os.html">os</a> <a href="/tag/threads.html">threads</a> <a href="/tag/fork.html">fork</a> <a href="/tag/linux.html">linux</a> </p>
+</footer><!-- /.post-info --><p>Occasionally, you encounter an issue that teaches or makes you revisit the fundamentals. This is one such issue which is worth sharing. Until recently, I was heavily involved in a Python project that helps developers to instrument their code and troubleshoot performance issues. The primary audience<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> of this library writes web application services, and the vast majority of those applications are hosted with a WSGI server such as Gunicorn or uWSGI, either directly or behind a lightweight web server such as nginx. We have received several reports from users that the library does not work when used with Gunicorn. The issue was that their telemetry data was not getting exported. I set out to investigate the issue and little did I know that I would (re)-learn a lot about the Linux system call <code>fork</code>.</p>
+<p>The landing page of <a href="https://gunicorn.org/">https://gunicorn.org/</a> says "It's a pre-fork worker model". The preforking model has a long history and dates back to the early days of Apache. The idea is to create a pool of worker processes to handle incoming requests. Why is there a need to create a pool of worker processes, you ask? The multi-threading is not truly parallel Python because of the Global Interpreter Lock (GIL). The GIL is a mutex that protects access to Python objects, preventing multiple threads from executing Python bytecodes at once. This means that Python threads are unable to fully utilize multiple cores. The preforking model is a way to get around this limitation and utilize multiple cores.</p>
+<p>The library in question uses several background threads to do batch processing. These background threads use synchronization primitives like Lock, Event, and Condition variables to export data periodically when the queue is full or when a timeout occurs. It's when you mix the threading, and forking that things get weird. </p>
+<p>The <a href="https://man7.org/linux/man-pages/man2/fork.2.html"><code>fork</code></a> manual page says </p>
+<blockquote>
+<p>The child process is created with a single thread—the one that called fork(). The entire virtual address space of the parent is replicated in the child, including the states of mutexes, condition variables, and other pthreads objects. </p>
+</blockquote>
+<p>This means when a multi-threaded program forks, the child process has only one thread, and the state of synchronization primitives is copied. The lock acquired by the parent process is also acquired by the child process. This is a problem because the child process is unaware of the parent process, and the lock is never released and deadlocks the child process.</p>
+<p>So what is the solution? </p>
+<ul>
+<li>
+<p>One way to address this problem is to declare your package is not fork-safe and ask the users to do whatever is necessary to make it work<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</p>
+</li>
+<li>
+<p>Or can the library be made fork-safe?</p>
+</li>
+</ul>
+<p>I got curious mainly because Python stdlib itself could have some code that is not fork-safe, and it must have a mechanism to handle this situation. It's time to look at the issue tracker to see the past discussions. There are several issues that are related to this problem. Following are some of the issues that are relevant to this discussion which I read through:</p>
+<ul>
+<li><a href="https://github.com/python/cpython/issues/32958">https://github.com/python/cpython/issues/32958</a></li>
+<li><a href="https://github.com/python/cpython/issues/50970">https://github.com/python/cpython/issues/50970</a></li>
+<li><a href="https://github.com/python/cpython/issues/51172">https://github.com/python/cpython/issues/51172</a></li>
+<li><a href="https://github.com/python/cpython/issues/60704">https://github.com/python/cpython/issues/60704</a></li>
+<li><a href="https://github.com/python/cpython/issues/74014">https://github.com/python/cpython/issues/74014</a></li>
+<li><a href="https://github.com/python/cpython/issues/74580">https://github.com/python/cpython/issues/74580</a></li>
+</ul>
+<p>And quickly skimming through the PRs that are linked, I found the <code>register_at_fork</code> from the <code>os</code> module is used to sanitize the locks and other synchronization primitives. My immediate thought was, The man page for fork had mentioned a related function which I didn't bother to read carefully. The <code>pthread_atfork</code> that is used to register handlers to be called when a new process is created with <code>fork</code>. </p>
+<p>The NOTES section says</p>
+<blockquote>
+<p>When fork(2) is called in a multithreaded process, only the
+calling thread is duplicated in the child process.  The original
+intention of pthread_atfork() was to allow the child process to
+be returned to a consistent state.  For example, at the time of
+the call to fork(2), other threads may have locked mutexes that
+are visible in the user-space memory duplicated in the child.
+Such mutexes would never be unlocked, since the threads that
+placed the locks are not duplicated in the child.  The intent of
+pthread_atfork() was to provide a mechanism whereby the
+application (or a library) could ensure that mutexes and other
+process and thread state would be restored to a consistent state.</p>
+</blockquote>
+<p>Ah yes, this is exactly what we need. And I sent a PR to use <code>register_at_fork</code> to reinitialize the possibly corrupted state in the child process. The PR was merged, and users were happy to see their distributed tracing data again. A set of users (who used uWSGI) were still facing the issue. After a few days of debugging, I found that the hook is never invoked because the uWSGI forks outside the Python interpreter. The <code>fork</code> is called from the C code, and the <code>register_at_fork</code> is not invoked. Well, that's unfortunate. It didn't occur to me immediately that the <a href="https://github.com/python/cpython/issues/50970#issuecomment-1093477842">comment</a> from the @pitrou can also be used  i.e track the pid and reinitialize when the pid changes. I sent another PR to do exactly that and it now works everywhere.</p>
+<p>Oof, that was a lot of work and fun at the same time.</p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Arguably, the primary audience.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>There are server hooks that can be used to work around this problem but that wouldn't make the library "auto-instrumentation".&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/srikanthccv">Twitter</a></li>
+                            <li><a href="https://github.com/srikanthccv">Github</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

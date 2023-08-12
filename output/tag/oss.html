@@ -2,35 +2,123 @@
 <html lang="fr">
 <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content="Pelican" />
         <title>Chekuri - oss</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
-
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Chekuri </a></h1>
+                <h1><a href="/">Chekuri</a></h1>
+                <nav><ul>
+                    <li><a href="/pages/about.html">About</a></li>
+                    <li><a href="/category/poasts.html">poasts</a></li>
+                </ul></nav>
         </header><!-- /#banner -->
-            <section id="content" class="body">
-                <ol id="posts-list" class="hfeed" start="9">
-        <li><article class="hentry">
-            <header>
-                <h1><a href="/lurker-to-maintainer-pipeline.html" rel="bookmark"
-                        title="Permalink to Lurker to maintainer pipeline">Lurker to maintainer pipeline</a></h1>
-            </header>
 
-            <div class="entry-content">
-            <p><img src="/images/opentelemetry-horizontal-color.png" style="float: right; max-width: 40%; max-height: 300px; height: auto; padding: 0 1em 1em" /></p>
-<p>Microservices were a zero-interest rate phenomenon (<a href="https://en.wikipedia.org/wiki/Zero_interest-rate_policy">ZIRP</a>). This was the time when it was controversial not to do microservices. Every team had a few engineers who would passionately advocate for moving to this new cool architectural pattern in the town that solves all of your problems, technical or otherwise. I …</p>
-            <a class="readmore" href="/lurker-to-maintainer-pipeline.html">read more</a>
-            </div><!-- /.entry-content -->
-        </article></li>
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/lurker-to-maintainer-pipeline.html">Lurker to maintainer pipeline</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2023-07-29T00:00:00+04:00">
+                Published: Sat 29 July 2023
+        </abbr>
 
-                <!-- <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p> -->
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
+        </address>
+<p>In <a href="/category/poasts.html">poasts</a>.</p>
+<p>tags: <a href="/tag/oss.html">oss</a> <a href="/tag/opentelemetry.html">opentelemetry</a> <a href="/tag/contributing.html">contributing</a> </p>
+</footer><!-- /.post-info --><p><img src="/images/opentelemetry-horizontal-color.png" style="float: right; max-width: 40%; max-height: 300px; height: auto; padding: 0 1em 1em" /></p>
+<p>Microservices<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> were a zero-interest rate phenomenon (<a href="https://en.wikipedia.org/wiki/Zero_interest-rate_policy">ZIRP</a>). This was the time when it was controversial not to do microservices. Every team had a few engineers who would passionately advocate for moving to this new cool architectural pattern in the town that solves all of your problems, technical or otherwise. I worked at a small startup that had followed the trend and created a un(necessarily?) complicated system<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>. The development and debugging were a nightmare. The search for missing astra in my quiver as I decided to ride into the battle of the <a href="https://en.wikipedia.org/wiki/Kurukshetra_War">k8shetra</a> led me to OpenTelemetry.</p>
+<p>The following is the rough timeline of my involvement with the project:</p>
+<h2>It's always the outdated docs</h2>
+<p>The unfortunate truth about the project under active development is that the examples are often broken. With every release, many new errors are thrown at you mercilessly. The silent errors make you question your sanity and life choices. OpenTelemetry was no different. Given the pain I had to go through, I decided to send a pull request fixing the example, like a humble squirrel wet its body and <a href="https://youtu.be/gKcOjnDJfzk?t=4171">roll over the sand</a> over the bridge, while the monkeys pushed the big rocks to build the setu.</p>
+<h2>When the universe conspires</h2>
+<p>To escape the monotony and misery of the world around me caused by the sudden lockdown from the pandemic, I tried to pick up new hobbies to kill time and keep myself busy in isolation. After many failed attempts, I settled with cycling and a blue screen. Over the next few months, my project involvement proliferated. It was like unpaid full-time work outside $job; I took anything that came my way because I was really "vibing" with the project.</p>
+<p>The lurker to credible contributor transition is probably the most common path to becoming a maintainer. It starts with being a user. Through intrinsic motivation, you start getting involved in the community. Start by answering questions on Slack, StackOverflow, or GitHub issues. Answering some questions or triaging issues requires understanding the framework/library/tool beyond the surface level. This is where you start digging into the internals. The natural progression is to start fixing bugs and sending patches to missing pieces you find.</p>
+<h2>Earn trust</h2>
+<p>People notice and appreciate your efforts when you consistently show up and do the work. This is universally true. I was no exception. The experts or the "expertise" in something is often a consequence of the time and effort you put in - at least, that's what I believe. </p>
+<p>My commitment to the project was evident from my contributions, code or otherwise. I was offered to become an "approver". During this time, I learned a lot about how to be an effective reviewer (You should read this <a href="https://google.github.io/eng-practices/review/">https://google.github.io/eng-practices/review/</a> in case you haven't already). And for more than a year, I worked on making substantial code contributions, reviewing and collaborating with diverse people, which helped build trust and confidence in my work. When one of the maintainers decided to step down, I was offered to take over the role.</p>
+<h2>#soreadytohelp</h2>
+<p>As an outsider, I had expected that there would be plenty of contributors. Even if 1% of the users contribute, it would be many people. And that is true, but number of contributors who stick around is tiny.</p>
+<p>There are three kinds of contributors: </p>
+<ol>
+<li>Those who express interest in contributing but never do or fail to follow through </li>
+<li>Those who contribute once and never come back, and </li>
+<li>Those who stick around and become regular contributors</li>
+</ol>
+<p>The first two categories are the majority. The third category is the one that is the most valuable. They are the ones who are the most likely to become maintainers. You would only know who is who once they stick around for a while. So it is essential to treat everyone as the third category.</p>
+<p>Out of around a dozen people over the months, one person stuck around and became a maintainer.</p>
+<p><img src="/images/shalev_maintainer.png" style="float: middle; max-width: 80%; max-height: 1200px; height: auto; padding: 0 1em 1em" /></p>
+<h2>Why step down?</h2>
+<p>I stepped down from the role of maintainer after a year. There are many reasons why I decided to step down.</p>
+<ul>
+<li>The guilt of not being able to justify the responsibility was the biggest one. </li>
+<li>One can devote only so much time and energy to a project. The return on investment of my time and energy was diminishing. I was not learning anything new or enjoying the work as much as I used to. The priorities</li>
+<li>The priorities in my personal and professional life changed.</li>
+</ul>
+<p>I had a lot of fun and learned a lot of things. I am grateful to the project and the people involved. It boosted my confidence and self-esteem and helped me grow multi-fold.</p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>While the microservices are still a thing, the hype has died down, and people are more pragmatic about it <a href="https://twitter.com/GergelyOrosz/status/1247132806041546754">https://twitter.com/GergelyOrosz/status/1247132806041546754</a>.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>This was later rewritten as a monolith in another language.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/working-at-a-startup.html" rel="bookmark"
+                           title="Permalink to Working at a startup">Working at a startup</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2023-06-09T00:00:00+04:00">
+                Published: Fri 09 June 2023
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
+        </address>
+<p>In <a href="/category/poasts.html">poasts</a>.</p>
+<p>tags: <a href="/tag/startup.html">startup</a> <a href="/tag/oss.html">oss</a> <a href="/tag/work.html">work</a> </p>
+</footer><!-- /.post-info -->                <p><img src="/images/signoz.png" style="float: right; max-width: 20%; max-height: 300px; height: auto; padding: 0 1em 1em" /></p>
+<p>Community events are a great way to meet people and learn what they are up to. I was at KCD Bangalore<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> last week and met a bunch of people. Among many conversations, one stood out. An engineer and architect turned entrepreneur was interested in hearing feedback about the new …</p>
+                <a class="readmore" href="/working-at-a-startup.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/srikanthccv">Twitter</a></li>
+                            <li><a href="https://github.com/srikanthccv">Github</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 Title: Working at a startup
 Date: 2023-06-09
-Category: work, oss, startup
+Category: poasts
+Tags: startup, oss, work
 
 <img src="{static}/images/signoz.png" style="float: right; max-width: 20%; max-height: 300px; height: auto; padding: 0 1em 1em" />
 
