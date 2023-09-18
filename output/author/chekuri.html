@@ -19,7 +19,51 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/threading-and-forking.html">Threading and forking</a></h1>
+                    <h1 class="entry-title"><a href="/say-no-to-debugger.html">Say no to debugger</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2023-09-17T00:00:00+04:00">
+                Published: Sun 17 September 2023
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
+        </address>
+<p>In <a href="/category/poasts.html">poasts</a>.</p>
+<p>tags: <a href="/tag/debugger.html">debugger</a> </p>
+</footer><!-- /.post-info --><p>Last Friday, I pair-programmed with my co-worker <a href="https://github.com/dhawal1248">Dhawal</a> to debug an issue. While debugging, it came up that I don't use a debugger. I didn't have a good answer When they asked me why. I have been thinking about it since then, and I think I have an answer now. Broadly speaking, there are two reasons why I don't use a <em>real debugger</em><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<h2>Never learned to use one</h2>
+<p>I wrote my first computer program in C during my first year of college. The tools I knew then were <a href="https://gcc.gnu.org/">GCC</a>, <a href="https://help.gnome.org/users/gedit/stable/">gedit</a> and a command line. I would often run into segmentation fault crashes. The only way I knew to fix the issue was to add <code>printf</code> statements or throw away the code and start over. Looking back at it, It seems like a very inefficient way to debug, but I am glad I never got used to using a debugger.</p>
+<h2>Print + Read Aloud is all you need</h2>
+<p>The habit of not using a <em>real debugger</em> continued into my professional career. Whenever I needed to debug something, I would simply stare at the code and read it aloud in my head. (Not so) surprisingly, carefully reading the code aloud and thinking about it would often lead me to the issue. Or, to put it another way, using your brain and mouth to "step through" the code is very effective.</p>
+<p>The "Stare into code" approach doesn't always work and requires that you already know the part of the code that is causing the issue. So, what do you do when you don't know where the issue is? I would come up with a hypothesis about the issue. I would then add <code>printf</code> statements to the code to verify the hypothesis. Repeat the process until I found the issue. I found this method to be very effective. I didn't know this process has a name until I read <a href="https://eikmeier.sites.grinnell.edu/csc-151-s221/readings/hypothesis-driven-debugging.html">https://eikmeier.sites.grinnell.edu/csc-151-s221/readings/hypothesis-driven-debugging.html</a>. I highly recommend reading it.</p>
+<p>My approach to debugging has evolved over time. The first thing I do now is write a repeatable test case that reproduces the issue<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>. Any time that goes into writing this test case is well spent because you will have to run the code over and over again to verify your hypothesis. In the end, you have a test in your suite to ensure this bug doesn't crop up again. In my experience and from what I have seen, those who don't write this repeatable test are the ones who reach for a debugger first.</p>
+<p>Once the test case is ready, I would start at a high level and work my way down to the issue. This is where I think the <em>print debugging</em> differs most. With a <em>real debugger</em>, you would set a breakpoint and step through the code. The problem with this is that it is easy to get lost in the code and details that are not relevant to the issue. Even if you step over function calls, it is seldom a wrong level of detail. As I narrow down the issue, the state of variables becomes important. I would then add <code>printf</code> statements to reject or confirm my hypothesis. Repeat this process until the issue is found. </p>
+<h2>Final thoughts</h2>
+<p>The tools we use shape the way we think. I think the <em>print debugging</em> approach has helped me become a better programmer. Though this sounds obvious - It forces me to read the code and understand it. The thought + read aloud combination helps me think about the code in a different way. The ability to read through the code and spot issues has made me a better reviewer. I believe debuggers are very useful tools, and I am not against using them. I just think that they are not the first tool to reach for. I would like to think a debugger should be used only when one runs out of other options. Or I probably suck at using a debugger.</p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Debugger is the last resort. I rarely use it, but when I do, I either debug a tricky issue or work with a language/codebase that I am unfamiliar with to understand the code.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>My collaboration in OSS project(s) helped me make this a habit - <a href="https://github.com/tigrannajaryan">Tigran</a> always asks for a reproducible test case when a pull request is submitted.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/threading-and-forking.html" rel="bookmark"
+                           title="Permalink to Threading and forking">Threading and forking</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2023-08-12T00:00:00+04:00">
                 Published: Sat 12 August 2023
@@ -30,65 +74,10 @@
         </address>
 <p>In <a href="/category/poasts.html">poasts</a>.</p>
 <p>tags: <a href="/tag/os.html">os</a> <a href="/tag/threads.html">threads</a> <a href="/tag/fork.html">fork</a> <a href="/tag/linux.html">linux</a> </p>
-</footer><!-- /.post-info --><p>Occasionally, you encounter an issue that teaches or makes you revisit the fundamentals. This is one such issue which is worth sharing. Until recently, I was heavily involved in a Python project that helps developers to instrument their code and troubleshoot performance issues. The primary audience<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> of this library writes web application services, and the vast majority of those applications are hosted with a WSGI server such as Gunicorn or uWSGI, either directly or behind a lightweight web server such as nginx. We have received several reports from users that the library does not work when used with Gunicorn. The issue was that their telemetry data was not getting exported. I set out to investigate the issue and little did I know that I would (re)-learn a lot about the Linux system call <code>fork</code>.</p>
-<p>The landing page of <a href="https://gunicorn.org/">https://gunicorn.org/</a> says "It's a pre-fork worker model". The preforking model has a long history and dates back to the early days of Apache. The idea is to create a pool of worker processes to handle incoming requests. Why is there a need to create a pool of worker processes, you ask? The multi-threading is not truly parallel Python because of the Global Interpreter Lock (GIL). The GIL is a mutex that protects access to Python objects, preventing multiple threads from executing Python bytecodes at once. This means that Python threads are unable to fully utilize multiple cores. The preforking model is a way to get around this limitation and utilize multiple cores.</p>
-<p>The library in question uses several background threads to do batch processing. These background threads use synchronization primitives like Lock, Event, and Condition variables to export data periodically when the queue is full or when a timeout occurs. It's when you mix the threading, and forking that things get weird. </p>
-<p>The <a href="https://man7.org/linux/man-pages/man2/fork.2.html"><code>fork</code></a> manual page says </p>
-<blockquote>
-<p>The child process is created with a single thread—the one that called fork(). The entire virtual address space of the parent is replicated in the child, including the states of mutexes, condition variables, and other pthreads objects. </p>
-</blockquote>
-<p>This means when a multi-threaded program forks, the child process has only one thread, and the state of synchronization primitives is copied. The lock acquired by the parent process is also acquired by the child process. This is a problem because the child process is unaware of the parent process, and the lock is never released and deadlocks the child process.</p>
-<p>So what is the solution? </p>
-<ul>
-<li>
-<p>One way to address this problem is to declare your package is not fork-safe and ask the users to do whatever is necessary to make it work<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</p>
-</li>
-<li>
-<p>Or can the library be made fork-safe?</p>
-</li>
-</ul>
-<p>I got curious mainly because Python stdlib itself could have some code that is not fork-safe, and it must have a mechanism to handle this situation. It's time to look at the issue tracker to see the past discussions. There are several issues that are related to this problem. Following are some of the issues that are relevant to this discussion which I read through:</p>
-<ul>
-<li><a href="https://github.com/python/cpython/issues/32958">https://github.com/python/cpython/issues/32958</a></li>
-<li><a href="https://github.com/python/cpython/issues/50970">https://github.com/python/cpython/issues/50970</a></li>
-<li><a href="https://github.com/python/cpython/issues/51172">https://github.com/python/cpython/issues/51172</a></li>
-<li><a href="https://github.com/python/cpython/issues/60704">https://github.com/python/cpython/issues/60704</a></li>
-<li><a href="https://github.com/python/cpython/issues/74014">https://github.com/python/cpython/issues/74014</a></li>
-<li><a href="https://github.com/python/cpython/issues/74580">https://github.com/python/cpython/issues/74580</a></li>
-</ul>
-<p>And quickly skimming through the PRs that are linked, I found the <code>register_at_fork</code> from the <code>os</code> module is used to sanitize the locks and other synchronization primitives. My immediate thought was, The man page for fork had mentioned a related function which I didn't bother to read carefully. The <code>pthread_atfork</code> that is used to register handlers to be called when a new process is created with <code>fork</code>. </p>
-<p>The NOTES section says</p>
-<blockquote>
-<p>When fork(2) is called in a multithreaded process, only the
-calling thread is duplicated in the child process.  The original
-intention of pthread_atfork() was to allow the child process to
-be returned to a consistent state.  For example, at the time of
-the call to fork(2), other threads may have locked mutexes that
-are visible in the user-space memory duplicated in the child.
-Such mutexes would never be unlocked, since the threads that
-placed the locks are not duplicated in the child.  The intent of
-pthread_atfork() was to provide a mechanism whereby the
-application (or a library) could ensure that mutexes and other
-process and thread state would be restored to a consistent state.</p>
-</blockquote>
-<p>Ah yes, this is exactly what we need. And I sent a PR to use <code>register_at_fork</code> to reinitialize the possibly corrupted state in the child process. The PR was merged, and users were happy to see their distributed tracing data again. A set of users (who used uWSGI) were still facing the issue. After a few days of debugging, I found that the hook is never invoked because the uWSGI forks outside the Python interpreter. The <code>fork</code> is called from the C code, and the <code>register_at_fork</code> is not invoked. Well, that's unfortunate. It didn't occur to me immediately that the <a href="https://github.com/python/cpython/issues/50970#issuecomment-1093477842">comment</a> from the @pitrou can also be used  i.e track the pid and reinitialize when the pid changes. I sent another PR to do exactly that and it now works everywhere.</p>
-<p>Oof, that was a lot of work and fun at the same time.</p>
-<div class="footnote">
-<hr>
-<ol>
-<li id="fn:1">
-<p>Arguably, the primary audience.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-<li id="fn:2">
-<p>There are server hooks that can be used to work around this problem but that wouldn't make the library "auto-instrumentation".&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</footer><!-- /.post-info -->                <p>Occasionally, you encounter an issue that teaches or makes you revisit the fundamentals. This is one such issue which is worth sharing. Until recently, I was heavily involved in a Python project that helps developers to instrument their code and troubleshoot performance issues. The primary audience<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> of this library …</p>
+                <a class="readmore" href="/threading-and-forking.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>

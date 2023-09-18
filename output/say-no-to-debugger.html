@@ -4,8 +4,9 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content="Pelican" />
-        <title>Chekuri - poasts</title>
+        <title>Say no to debugger</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="Last Friday, I pair-programmed with my co-worker Dhawal to debug an issue. While debugging, it came up that I don't use a debugger. I didn't have..." />
 </head>
 
 <body id="index" class="home">
@@ -16,10 +17,15 @@
                     <li class="active"><a href="/category/poasts.html">poasts</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/say-no-to-debugger.html" rel="bookmark"
+           title="Permalink to Say no to debugger">Say no to debugger</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/say-no-to-debugger.html">Say no to debugger</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2023-09-17T00:00:00+04:00">
                 Published: Sun 17 September 2023
@@ -30,7 +36,7 @@
         </address>
 <p>In <a href="/category/poasts.html">poasts</a>.</p>
 <p>tags: <a href="/tag/debugger.html">debugger</a> </p>
-</footer><!-- /.post-info --><p>Last Friday, I pair-programmed with my co-worker <a href="https://github.com/dhawal1248">Dhawal</a> to debug an issue. While debugging, it came up that I don't use a debugger. I didn't have a good answer When they asked me why. I have been thinking about it since then, and I think I have an answer now. Broadly speaking, there are two reasons why I don't use a <em>real debugger</em><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+</footer><!-- /.post-info -->      <p>Last Friday, I pair-programmed with my co-worker <a href="https://github.com/dhawal1248">Dhawal</a> to debug an issue. While debugging, it came up that I don't use a debugger. I didn't have a good answer When they asked me why. I have been thinking about it since then, and I think I have an answer now. Broadly speaking, there are two reasons why I don't use a <em>real debugger</em><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
 <h2>Never learned to use one</h2>
 <p>I wrote my first computer program in C during my first year of college. The tools I knew then were <a href="https://gcc.gnu.org/">GCC</a>, <a href="https://help.gnome.org/users/gedit/stable/">gedit</a> and a command line. I would often run into segmentation fault crashes. The only way I knew to fix the issue was to add <code>printf</code> statements or throw away the code and start over. Looking back at it, It seems like a very inefficient way to debug, but I am glad I never got used to using a debugger.</p>
 <h2>Print + Read Aloud is all you need</h2>
@@ -50,82 +56,11 @@
 <p>My collaboration in OSS project(s) helped me make this a habit - <a href="https://github.com/tigrannajaryan">Tigran</a> always asks for a reproducible test case when a pull request is submitted.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
-</div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</div>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/threading-and-forking.html" rel="bookmark"
-                           title="Permalink to Threading and forking">Threading and forking</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2023-08-12T00:00:00+04:00">
-                Published: Sat 12 August 2023
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
-        </address>
-<p>In <a href="/category/poasts.html">poasts</a>.</p>
-<p>tags: <a href="/tag/os.html">os</a> <a href="/tag/threads.html">threads</a> <a href="/tag/fork.html">fork</a> <a href="/tag/linux.html">linux</a> </p>
-</footer><!-- /.post-info -->                <p>Occasionally, you encounter an issue that teaches or makes you revisit the fundamentals. This is one such issue which is worth sharing. Until recently, I was heavily involved in a Python project that helps developers to instrument their code and troubleshoot performance issues. The primary audience<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> of this library …</p>
-                <a class="readmore" href="/threading-and-forking.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/lurker-to-maintainer-pipeline.html" rel="bookmark"
-                           title="Permalink to Lurker to maintainer pipeline">Lurker to maintainer pipeline</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2023-07-29T00:00:00+04:00">
-                Published: Sat 29 July 2023
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
-        </address>
-<p>In <a href="/category/poasts.html">poasts</a>.</p>
-<p>tags: <a href="/tag/oss.html">oss</a> <a href="/tag/opentelemetry.html">opentelemetry</a> <a href="/tag/contributing.html">contributing</a> </p>
-</footer><!-- /.post-info -->                <p><img src="/images/opentelemetry-horizontal-color.png" style="float: right; max-width: 40%; max-height: 300px; height: auto; padding: 0 1em 1em" /></p>
-<p>Microservices<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> were a zero-interest rate phenomenon (<a href="https://en.wikipedia.org/wiki/Zero_interest-rate_policy">ZIRP</a>). This was the time when it was controversial not to do microservices. Every team had a few engineers who would passionately advocate for moving to this new cool architectural pattern in the town that solves all of your problems, technical or otherwise …</p>
-                <a class="readmore" href="/lurker-to-maintainer-pipeline.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/working-at-a-startup.html" rel="bookmark"
-                           title="Permalink to Working at a startup">Working at a startup</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2023-06-09T00:00:00+04:00">
-                Published: Fri 09 June 2023
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
-        </address>
-<p>In <a href="/category/poasts.html">poasts</a>.</p>
-<p>tags: <a href="/tag/startup.html">startup</a> <a href="/tag/oss.html">oss</a> <a href="/tag/work.html">work</a> </p>
-</footer><!-- /.post-info -->                <p><img src="/images/signoz.png" style="float: right; max-width: 20%; max-height: 300px; height: auto; padding: 0 1em 1em" /></p>
-<p>Community events are a great way to meet people and learn what they are up to. I was at KCD Bangalore<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> last week and met a bunch of people. Among many conversations, one stood out. An engineer and architect turned entrepreneur was interested in hearing feedback about the new …</p>
-                <a class="readmore" href="/working-at-a-startup.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="social">
                         <h2>social</h2>
