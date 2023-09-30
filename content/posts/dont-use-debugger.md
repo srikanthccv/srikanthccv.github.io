@@ -1,6 +1,6 @@
 Title: Say no to debugger
 Date: 2023-09-17
-Category: poasts
+Category: posts
 Tags: debugger
 
 Last Friday, I pair-programmed with my co-worker [Dhawal](https://github.com/dhawal1248) to debug an issue. While debugging, it came up that I don't use a debugger. I didn't have a good answer When they asked me why. I have been thinking about it since then, and I think I have an answer now. Broadly speaking, there are two reasons why I don't use a _real debugger_[^1].

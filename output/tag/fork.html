@@ -13,7 +13,7 @@
                 <h1><a href="/">Chekuri</a></h1>
                 <nav><ul>
                     <li><a href="/pages/about.html">About</a></li>
-                    <li><a href="/category/poasts.html">poasts</a></li>
+                    <li><a href="/category/posts.html">posts</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
@@ -28,7 +28,7 @@
         <address class="vcard author">
                 By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
         </address>
-<p>In <a href="/category/poasts.html">poasts</a>.</p>
+<p>In <a href="/category/posts.html">posts</a>.</p>
 <p>tags: <a href="/tag/os.html">os</a> <a href="/tag/threads.html">threads</a> <a href="/tag/fork.html">fork</a> <a href="/tag/linux.html">linux</a> </p>
 </footer><!-- /.post-info --><p>Occasionally, you encounter an issue that teaches or makes you revisit the fundamentals. This is one such issue which is worth sharing. Until recently, I was heavily involved in a Python project that helps developers to instrument their code and troubleshoot performance issues. The primary audience<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> of this library writes web application services, and the vast majority of those applications are hosted with a WSGI server such as Gunicorn or uWSGI, either directly or behind a lightweight web server such as nginx. We have received several reports from users that the library does not work when used with Gunicorn. The issue was that their telemetry data was not getting exported. I set out to investigate the issue and little did I know that I would (re)-learn a lot about the Linux system call <code>fork</code>.</p>
 <p>The landing page of <a href="https://gunicorn.org/">https://gunicorn.org/</a> says "It's a pre-fork worker model". The preforking model has a long history and dates back to the early days of Apache. The idea is to create a pool of worker processes to handle incoming requests. Why is there a need to create a pool of worker processes, you ask? The multi-threading is not truly parallel Python because of the Global Interpreter Lock (GIL). The GIL is a mutex that protects access to Python objects, preventing multiple threads from executing Python bytecodes at once. This means that Python threads are unable to fully utilize multiple cores. The preforking model is a way to get around this limitation and utilize multiple cores.</p>

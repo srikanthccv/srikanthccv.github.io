@@ -1,6 +1,6 @@
 Title: Writing a JSON Schema generator for OpenTelemetry Collector
 Date: 2023-08-19
-Category: poasts
+Category: posts
 Tags: jsonschema, lsp, yaml, opentelemetry, collector
 
 Have you ever wondered how text editing tools like VSCode, IntelliJ, and Vim know the JSON or YAML file structure you are editing and how it provides auto-completion, field descriptions, and (basic) validation? The answer is Language Server Protocol (LSP). LSP is a protocol that allows the editor to communicate with the language server to get information about the file you are editing. In this poast, I will describe how I wrote a tiny JSON Schema generator for OpenTelemetry Collector.

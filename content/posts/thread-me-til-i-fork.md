@@ -1,6 +1,6 @@
 Title: Threading and forking
 Date: 2023-08-12
-Category: poasts
+Category: posts
 Tags: os, threads, fork, linux
 
 Occasionally, you encounter an issue that teaches or makes you revisit the fundamentals. This is one such issue which is worth sharing. Until recently, I was heavily involved in a Python project that helps developers to instrument their code and troubleshoot performance issues. The primary audience[^1] of this library writes web application services, and the vast majority of those applications are hosted with a WSGI server such as Gunicorn or uWSGI, either directly or behind a lightweight web server such as nginx. We have received several reports from users that the library does not work when used with Gunicorn. The issue was that their telemetry data was not getting exported. I set out to investigate the issue and little did I know that I would (re)-learn a lot about the Linux system call `fork`.

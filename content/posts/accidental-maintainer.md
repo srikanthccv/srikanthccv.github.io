@@ -1,6 +1,6 @@
 Title: Lurker to maintainer pipeline
 Date: 2023-07-29
-Category: poasts
+Category: posts
 Tags: oss, opentelemetry, contributing
 
 <img src="{static}/images/opentelemetry-horizontal-color.png" style="float: right; max-width: 40%; max-height: 300px; height: auto; padding: 0 1em 1em" />
