@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content="Pelican" />
+        <title>Chekuri - entries</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Chekuri</a></h1>
+                <nav><ul>
+                    <li><a href="/pages/about.html">About</a></li>
+                    <li><a href="/category/posts.html">posts</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/making-changes-to-a-large-c-project.html">Making changes to a large C++ project</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2023-11-19T00:00:00+04:00">
+                Published: Sun 19 November 2023
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
+        </address>
+<p>In <a href="/category/posts.html">posts</a>.</p>
+<p>tags: <a href="/tag/programming.html">programming</a> <a href="/tag/clickhouse.html">clickhouse</a> <a href="/tag/entries.html">entries</a> </p>
+</footer><!-- /.post-info --><p>I recently worked on adding a <a href="https://github.com/ClickHouse/ClickHouse/pull/56342">DDSketch</a> support in ClickHouse. ClickHouse codebase is large; larger than any codebase I've worked with before. It's written in C++, a language I haven't used since college. My experience with C++ was limited to writing small programs for timed programming contests. Having to work with a large codebase in a language with little to no experience was a challenge because there was no buddy pair to guide me through. I had to learn how to navigate the unknown codebase, find the right place to make changes, test my changes, and fix the build issues. This post is for my future self, to document what worked and remind myself you can hack your way through almost anything.</p>
+<p>C++ is a different beast, unlike my primary choice of programming language Python/Go/JavaScript, where you usually can get the application to work with a simple run command. ClickHouse uses CMake as its build system. I didn't bother to read about it before I started working on the feature. I just jumped in and started making changes to the codebase. It turned out to be a terrible way to go about it. The seemingly simple <code>cmake --build build .</code> command failed with a very long cryptic error message. The Google search didn't turn up anything useful; The tokens in the error message are several orders of magnitude more than the maximum number of tokens allowed in ChatGPT. </p>
+<p>thak gaya hu bro (╯°□°)╯︵ ┻━┻. </p>
+<p>After countless failed attempts with (mostly) random changes over the next few days, a tweaked Google search led me to a mariadb's Jira ticket with a related crc32 error originating from rocksdb. The library linking issue was fixed after editing relevant CMakeLists.txt files. Next, tens of compilation errors spewed out to the console because ClickHouse build flags are very strict. ChatGPT shines here - you can paste the error, and it tells you how to address it in modern C++. It was like having an experienced C++ developer to help you on demand at a keyboard away. </p>
+<p>I was a little excited when it finally got compiled. To no surprise, it started crashing at the boot stage. It was another nightmare issue to troubleshoot. I wrote about my debugging philosophy in another <a href="/say-no-to-debugger.html">writeup</a>. The techniques were ineffective given my expertise here is none. It was time to fire up the professional debugger like a "real" developer. The debugger came to the rescue and helped me track down the issue. The reason behind the crash was any Exception thrown would never get caught in the <code>try...catch</code> block and terminate the server.</p>
+<p>This time again, a carefully crafted Google search led me to a JetBrains discussion forum. It gave me some pointers to dig further. I came out of this mess cursing the Apple linker. The generated build config used the default linker on MacOS. I don't know the underlying issue, but using the llvm clang for compilation and Apple linker crashes any program. Setting the <code>LLD_PATH</code> with llvm linker (<code>/opt/homebrew/opt/llvm/bin/ld64.lld</code>) for Mac finally produced a build that doesn't crash. I have two related posts coming up next; explaining <em>DDSketch for dummies</em> and specific details about <em>writing quantile aggregation function in ClickHouse</em>.</p>
+<p>Notes for myself</p>
+<ul>
+<li>I should get familiar with the build systems and tooling before jumping into making any changes.</li>
+<li>Use a debugger when learning a new language to look at the frame variables, stack traces, control flow etc. It's the only time when debugger use is justified.</li>
+<li>Do not hesitate to seek help from maintainers and the community. They are as willing to help me as I would in OSS projects I help maintain.</li>
+<li>You can hack your way through almost anything.</li>
+</ul>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/srikanthccv">Twitter</a></li>
+                            <li><a href="https://github.com/srikanthccv">Github</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
