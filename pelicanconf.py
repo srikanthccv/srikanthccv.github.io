@@ -27,7 +27,7 @@ AUTHOR_FEED_RSS = None
 
 # Social widget
 SOCIAL = (('Twitter', 'https://twitter.com/buttonidly'),
-          ('LinkedIn', 'https://www.linkedin.com/in/tinyidly')
+          ('LinkedIn', 'https://www.linkedin.com/in/tinyidly'),
           ('Github', 'https://github.com/srikanthccv'))
 
 DEFAULT_PAGINATION = 10
