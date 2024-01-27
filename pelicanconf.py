@@ -26,9 +26,7 @@ AUTHOR_FEED_RSS = None
 #         ('You can modify those links in your config file', '#'),)
 
 # Social widget
-SOCIAL = (('Twitter', 'https://twitter.com/buttonidly'),
-          ('LinkedIn', 'https://www.linkedin.com/in/tinyidly'),
-          ('Github', 'https://github.com/srikanthccv'))
+SOCIAL = (('Github', 'https://github.com/srikanthccv'),)
 
 DEFAULT_PAGINATION = 10
 
