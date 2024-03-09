@@ -1,0 +1,14 @@
+What happens when `INSERT INTO` ClickHouse. I am specifically interested in navigating the code base and finding the call stack
+
+- The request arrives at TCPHandler
+- `executeQuery` is called with the query
+- `executeQuery` calls `executeQueryImpl`
+- `executeQueryImpl` calls interpreter factor function to get the relevant interpreter
+- `InterpreterInsertQuery::execute` get called
+- which in turn calls `buildPreSinkChain`
+- `ExpressionActions` and `Block::insert` get called
+- The block is returned
+- The ast and io block is returned all the way back to `TCPHandler`
+- The `processInsertQuery` get called in the `TCPHandler`
+- This calls the executor with number of threads
+- The executor is responsinble for writing to disk?
