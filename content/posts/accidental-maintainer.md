@@ -46,7 +46,7 @@ Out of around a dozen people over the months, one person stuck around and became
 I stepped down from the role of maintainer after a year. There are many reasons why I decided to step down.
 
 - The guilt of not being able to justify the responsibility was the biggest one. 
-- One can devote only so much time and energy to a project. The return on investment of my time and energy was diminishing. I was not learning anything new or enjoying the work as much as I used to. The priorities
+- One can devote only so much time and energy to a project. The return on investment of my time and energy was diminishing. I was not learning anything new or enjoying the work as much as I used to.
 - The priorities in my personal and professional life changed.
 
 
