@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="generator" content="Pelican" />
-        <title>Chekuri - collector</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
-</head>
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Chekuri - collector</title>
+                        <link rel="stylesheet" href="/theme/css/main.css" />
+        </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Chekuri</a></h1>
-                <nav><ul>
-                    <li><a href="/pages/about.html">About</a></li>
-                    <li><a href="/category/posts.html">posts</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="/">Chekuri</a></h1>
+                        <nav><ul>
+                                                <li><a href="/pages/about.html">About</a></li>
+                                                <li><a href="/pages/srikanths-dating-doc.html">Srikanth's dating doc</a></li>
+                                                <li><a href="/category/posts.html">posts</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/writing-a-json-schema-generator-for-opentelemetry-collector.html">Writing a JSON Schema generator for OpenTelemetry Collector</a></h1>
+                <aside id="featured" class="body">
+                    <article>
+                        <h1 class="entry-title"><a href="/writing-a-json-schema-generator-for-opentelemetry-collector.html">Writing a JSON Schema generator for OpenTelemetry Collector</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2023-08-19T00:00:00+04:00">
                 Published: Sat 19 August 2023
         </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
-        </address>
-<p>In <a href="/category/posts.html">posts</a>.</p>
-<p>tags: <a href="/tag/jsonschema.html">jsonschema</a> <a href="/tag/lsp.html">lsp</a> <a href="/tag/yaml.html">yaml</a> <a href="/tag/opentelemetry.html">opentelemetry</a> <a href="/tag/collector.html">collector</a> </p>
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/chekuri.html">Chekuri</a>
+                </address>
+        <p>In <a href="/category/posts.html">posts</a>.</p>
+<p>tags: <a href="/tag/jsonschema.html">jsonschema</a> <a href="/tag/lsp.html">lsp</a> <a href="/tag/yaml.html">yaml</a> <a href="/tag/opentelemetry.html">opentelemetry</a> <a href="/tag/collector.html">collector</a> </p>        
 </footer><!-- /.post-info --><p>Have you ever wondered how text editing tools like VSCode, IntelliJ, and Vim know the JSON or YAML file structure you are editing and how it provides auto-completion, field descriptions, and (basic) validation? The answer is Language Server Protocol (LSP). LSP is a protocol that allows the editor to communicate with the language server to get information about the file you are editing. In this poast, I will describe how I wrote a tiny JSON Schema generator for OpenTelemetry Collector.</p>
 <h2>Need</h2>
 <p>As a part of my $job, (and outside of it), I spend a lot of time working with Collector config YAML files. There are tens of components, each with a defined set of configuration options. It's hard to remember all the options and their types. I looked around to see if a tool could help me with this. A (talented and) curious soul created a gist that contains the JSON Schema for the Collector config. However, it is a few years old, and the code generated is lost, as mentioned by the author (I mailed them to collaborate and revive). I decided to write one myself as a fun exercise and side project.</p>
@@ -37,25 +38,25 @@
 <p>Having no idea how any of this worked, the first thing I looked up was how YAML auto-complete works in VSCode. There is an <a href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml">extension</a> built by RedHat that provides YAML support, eh? The "Associating schemas" section says <em>YAML Language support uses JSON Schemas to understand the shape of a YAML file, including its value sets, defaults and descriptions.</em> The <a href="https://json-schema.org/">JSON Schema</a> sounded familiar, yet not sure what it was. A quick example <a href="https://json-schema.org/learn/miscellaneous-examples.html#basic">https://json-schema.org/learn/miscellaneous-examples.html#basic</a> made it easier to follow. It's a JSON file that describes the structure of the JSON (or YAML) file.</p>
 <h2>Generating the schema</h2>
 <p>The handwritten schema is not an option, given the number of components and their evolving config options. I needed a way to generate the schema from the code. I discovered a <a href="https://github.com/invopop/jsonschema">library</a> that generates JSON Schemas from Go types through reflection. My first attempt was to use this library to generate the schema from the config structs. It worked well for simple types like string, bool, int, etc. However, it failed for complex types like nested structs. I decided to fork the library. After several hours of learning and hacking, I could generate the schema. Here is the demo of it in action: <a href="https://github.com/srikanthccv/otelcol-jsonschema#demo">https://github.com/srikanthccv/otelcol-jsonschema#demo</a></p>
-<p>This was a fun exercise, and I learned JSON Schema, LSP, and Go reflection.</p>                </article>
-            </aside><!-- /#featured -->
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+<p>This was a fun exercise, and I learned JSON Schema, LSP, and Go reflection.</p>                    </article>
+                </aside><!-- /#featured -->
+                <section id="extras" class="body">
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
 
-                            <li><a href="https://github.com/srikanthccv">Github</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+                                                        <li><a href="https://github.com/srikanthccv">Github</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
-                </address><!-- /#about -->
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
 
-                <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
 
-</body>
+        </body>
 </html>

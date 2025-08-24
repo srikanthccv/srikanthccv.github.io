@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="generator" content="Pelican" />
-        <title>Threading and forking</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
-        <meta name="description" content="Occasionally, you encounter an issue that teaches or makes you revisit the fundamentals. This is one such issue which is worth sharing. Until..." />
-</head>
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Threading and forking</title>
+                        <link rel="stylesheet" href="/theme/css/main.css" />
+    <meta name="description" content="Occasionally, you encounter an issue that teaches or makes you revisit the fundamentals. This is one such issue which is worth sharing. Until..." />
+        </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Chekuri</a></h1>
-                <nav><ul>
-                    <li><a href="/pages/about.html">About</a></li>
-                    <li class="active"><a href="/category/posts.html">posts</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="/threading-and-forking.html" rel="bookmark"
-           title="Permalink to Threading and forking">Threading and forking</a></h1>
-    </header>
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="/">Chekuri</a></h1>
+                        <nav><ul>
+                                                <li><a href="/pages/about.html">About</a></li>
+                                                <li><a href="/pages/srikanths-dating-doc.html">Srikanth's dating doc</a></li>
+                                                <li class="active"><a href="/category/posts.html">posts</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="/threading-and-forking.html" rel="bookmark"
+             title="Permalink to Threading and forking">Threading and forking</a></h1>
+      </header>
 
-    <div class="entry-content">
+      <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2023-08-12T00:00:00+04:00">
                 Published: Sat 12 August 2023
         </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
-        </address>
-<p>In <a href="/category/posts.html">posts</a>.</p>
-<p>tags: <a href="/tag/os.html">os</a> <a href="/tag/threads.html">threads</a> <a href="/tag/fork.html">fork</a> <a href="/tag/linux.html">linux</a> </p>
-</footer><!-- /.post-info -->      <p>Occasionally, you encounter an issue that teaches or makes you revisit the fundamentals. This is one such issue which is worth sharing. Until recently, I was heavily involved in a Python project that helps developers to instrument their code and troubleshoot performance issues. The primary audience<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> of this library writes web application services, and the vast majority of those applications are hosted with a WSGI server such as Gunicorn or uWSGI, either directly or behind a lightweight web server such as nginx. We have received several reports from users that the library does not work when used with Gunicorn. The issue was that their telemetry data was not getting exported. I set out to investigate the issue and little did I know that I would (re)-learn a lot about the Linux system call <code>fork</code>.</p>
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/chekuri.html">Chekuri</a>
+                </address>
+        <p>In <a href="/category/posts.html">posts</a>.</p>
+<p>tags: <a href="/tag/os.html">os</a> <a href="/tag/threads.html">threads</a> <a href="/tag/fork.html">fork</a> <a href="/tag/linux.html">linux</a> </p>        
+</footer><!-- /.post-info -->        <p>Occasionally, you encounter an issue that teaches or makes you revisit the fundamentals. This is one such issue which is worth sharing. Until recently, I was heavily involved in a Python project that helps developers to instrument their code and troubleshoot performance issues. The primary audience<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> of this library writes web application services, and the vast majority of those applications are hosted with a WSGI server such as Gunicorn or uWSGI, either directly or behind a lightweight web server such as nginx. We have received several reports from users that the library does not work when used with Gunicorn. The issue was that their telemetry data was not getting exported. I set out to investigate the issue and little did I know that I would (re)-learn a lot about the Linux system call <code>fork</code>.</p>
 <p>The landing page of <a href="https://gunicorn.org/">https://gunicorn.org/</a> says "It's a pre-fork worker model". The preforking model has a long history and dates back to the early days of Apache. The idea is to create a pool of worker processes to handle incoming requests. Why is there a need to create a pool of worker processes, you ask? The multi-threading is not truly parallel Python because of the Global Interpreter Lock (GIL). The GIL is a mutex that protects access to Python objects, preventing multiple threads from executing Python bytecodes at once. This means that Python threads are unable to fully utilize multiple cores. The preforking model is a way to get around this limitation and utilize multiple cores.</p>
 <p>The library in question uses several background threads to do batch processing. These background threads use synchronization primitives like Lock, Event, and Condition variables to export data periodically when the queue is full or when a timeout occurs. It's when you mix the threading, and forking that things get weird. </p>
 <p>The <a href="https://man7.org/linux/man-pages/man2/fork.2.html"><code>fork</code></a> manual page says </p>
@@ -90,27 +91,27 @@ process and thread state would be restored to a consistent state.</p>
 </li>
 </ol>
 </div>
-    </div><!-- /.entry-content -->
+      </div><!-- /.entry-content -->
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
 
-                            <li><a href="https://github.com/srikanthccv">Github</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+                                                        <li><a href="https://github.com/srikanthccv">Github</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
-                </address><!-- /#about -->
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
 
-                <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
 
-</body>
+        </body>
 </html>

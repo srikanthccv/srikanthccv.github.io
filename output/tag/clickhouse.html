@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="generator" content="Pelican" />
-        <title>Chekuri - clickhouse</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
-</head>
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Chekuri - clickhouse</title>
+                        <link rel="stylesheet" href="/theme/css/main.css" />
+        </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Chekuri</a></h1>
-                <nav><ul>
-                    <li><a href="/pages/about.html">About</a></li>
-                    <li><a href="/category/posts.html">posts</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="/">Chekuri</a></h1>
+                        <nav><ul>
+                                                <li><a href="/pages/about.html">About</a></li>
+                                                <li><a href="/pages/srikanths-dating-doc.html">Srikanth's dating doc</a></li>
+                                                <li><a href="/category/posts.html">posts</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/from-key8-to-keys256_hash64-a-look-at-clickhouses-36-optimizations-for-group-by.html">From key8 to keys256_hash64: A look at ClickHouse's 36+ Optimizations for GROUP BY</a></h1>
+                <aside id="featured" class="body">
+                    <article>
+                        <h1 class="entry-title"><a href="/from-key8-to-keys256_hash64-a-look-at-clickhouses-36-optimizations-for-group-by.html">From key8 to keys256_hash64: A look at ClickHouse's 36+ Optimizations for GROUP BY</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2024-01-01T00:00:00+04:00">
                 Published: Mon 01 January 2024
         </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
-        </address>
-<p>In <a href="/category/posts.html">posts</a>.</p>
-<p>tags: <a href="/tag/clickhouse.html">clickhouse</a> </p>
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/chekuri.html">Chekuri</a>
+                </address>
+        <p>In <a href="/category/posts.html">posts</a>.</p>
+<p>tags: <a href="/tag/clickhouse.html">clickhouse</a> </p>        
 </footer><!-- /.post-info --><p><img src="/images/why-clickhouse-is-so-fast.png" style="float: middle; max-width: 50%; max-height: 300px; height: auto; padding: 0 1em 1em" /></p>
 <p>In one of his <a href="https://presentations.clickhouse.com/cern/#40">presentations</a>, Alexey Milovidov, the author of ClickHouse, talks about what makes it so fast. The <strong><em>we have 17 different algorithms for GROUP BY. Best one is selected for your query</em></strong> part caught my attention. I decided to dig deeper and find out what are these 17 algorithms. The presentation is about 7 years old now. Since then, several more optimizations for GROUP BY have been added. At the time of this writing, there are around 36+ optimizations for GROUP BY aggregations. In this post, we will look at 36+ optimizations ClickHouse uses for GROUP BY aggregations.</p>
 <p>There are a number of datasets available to work with. Let's load the <em>New York Taxi Data</em> dataset and play with some queries. You can find them <a href="https://clickhouse.com/docs/en/getting-started/example-datasets">here</a>. The schema of the dataset is as follows:</p>
@@ -364,53 +365,53 @@ GROUP BY
     dname
 ORDER BY count DESC
 LIMIT 10
-</code></pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</code></pre></div>                    </article>
+                </aside><!-- /#featured -->
+                    <section id="content" class="body">
+                        <h1>Other articles</h1>
+                        <hr />
+                        <ol id="posts-list" class="hfeed">
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/making-changes-to-a-large-c-project.html" rel="bookmark"
-                           title="Permalink to Making changes to a large C++ project">Making changes to a large C++ project</a></h1>
-                </header>
+                <li><article class="hentry">
+                    <header>
+                        <h1><a href="/making-changes-to-a-large-c-project.html" rel="bookmark"
+                               title="Permalink to Making changes to a large C++ project">Making changes to a large C++ project</a></h1>
+                    </header>
 
-                <div class="entry-content">
+                    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2023-11-19T00:00:00+04:00">
                 Published: Sun 19 November 2023
         </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/chekuri.html">Chekuri</a>
-        </address>
-<p>In <a href="/category/posts.html">posts</a>.</p>
-<p>tags: <a href="/tag/programming.html">programming</a> <a href="/tag/clickhouse.html">clickhouse</a> <a href="/tag/entries.html">entries</a> </p>
-</footer><!-- /.post-info -->                <p>I recently worked on adding a <a href="https://github.com/ClickHouse/ClickHouse/pull/56342">DDSketch</a> support in ClickHouse. ClickHouse codebase is large; larger than any codebase I've worked with before. It's written in C++, a language I haven't used since college. My experience with C++ was limited to writing small programs for timed programming contests. Having to work …</p>
-                <a class="readmore" href="/making-changes-to-a-large-c-project.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/chekuri.html">Chekuri</a>
+                </address>
+        <p>In <a href="/category/posts.html">posts</a>.</p>
+<p>tags: <a href="/tag/programming.html">programming</a> <a href="/tag/clickhouse.html">clickhouse</a> <a href="/tag/entries.html">entries</a> </p>        
+</footer><!-- /.post-info -->                        <p>I recently worked on adding a <a href="https://github.com/ClickHouse/ClickHouse/pull/56342">DDSketch</a> support in ClickHouse. ClickHouse codebase is large; larger than any codebase I've worked with before. It's written in C++, a language I haven't used since college. My experience with C++ was limited to writing small programs for timed programming contests. Having to work …</p>
+                        <a class="readmore" href="/making-changes-to-a-large-c-project.html">read more</a>
+                    </div><!-- /.entry-content -->
+                </article></li>
+                    </ol><!-- /#posts-list -->
+                    </section><!-- /#content -->
+                <section id="extras" class="body">
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
 
-                            <li><a href="https://github.com/srikanthccv">Github</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+                                                        <li><a href="https://github.com/srikanthccv">Github</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
-                </address><!-- /#about -->
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
 
-                <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
 
-</body>
+        </body>
 </html>
