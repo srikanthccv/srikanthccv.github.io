@@ -1,4 +1,4 @@
-Title: Srikanth's dating doc
+Title: Srikanth's marriage doc
 
 The number of times you get asked about getting married and "settling down" starts to grow as you near the end of your mid-20s. I have been delaying it by citing different reasons, but they were lame excuses as I wanted to focus more on my career goals. Now, I think I am emotionally and financially ready, so I decided to write a page on this tiny website of mine instead, because it's fun and I can give a peek into how I think and what I value.
 
